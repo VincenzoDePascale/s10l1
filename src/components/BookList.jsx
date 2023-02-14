@@ -9,11 +9,15 @@ class BookList extends Component {
     bookAsin: null,
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.bookAsin !== this.props.bookAsin) {
-      // this.COSA?!
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevProps.bookAsin !== this.props.bookAsin) {
+  //     this.cangeAsinBook();
+  //   }
+  // }
+
+  cangeAsinBook = (asin) => {
+    this.setState({ bookAsin: asin });
+  };
 
   render() {
     return (
@@ -40,16 +44,16 @@ class BookList extends Component {
                 )
                 .map((b) => (
                   <Col xs={12} md={4} key={b.asin}>
-                    <SingleBook
-                      book={b}
-                      onClick={() => this.setState({ bookAsin: "b.asin" })}
-                    />
+                    <SingleBook book={b} cangeAsinBook={this.cangeAsinBook} />
                   </Col>
                 ))}
             </Row>
           </Col>
           <Col xs={12} md={4}>
-            <CommentArea bookAsin={this.state.bookTitle} />
+            <CommentArea
+              bookAsin={this.state.bookAsin}
+              onClick={() => this.setState({ selected: !this.state.selected })}
+            />
           </Col>
         </Row>
       </>
